@@ -2,22 +2,19 @@ import {Component, OnInit} from '@angular/core';
 import {FuncionarioService} from '../../services/funcionario-service';
 import {TableModule} from 'primeng/table';
 import { Router } from '@angular/router';
-
-export interface Funcionario {
-  id?: number;
-  nome: string;
-  email: string;
-  cargo: string;
-  salario: number;
-  dataAdmissao: string;
-  ativo: boolean;
-}
+import {Funcionario} from '../../models/Funcionario';
+import {FormsModule} from '@angular/forms';
+import {CurrencyPipe, DatePipe, NgClass} from '@angular/common';
 
 
 @Component({
   selector: 'app-funcionario-list',
   imports: [
     TableModule,
+    FormsModule,
+    NgClass,
+    CurrencyPipe,
+    DatePipe,
   ],
   templateUrl: './funcionario-list.component.html',
   styleUrl: './funcionario-list.component.scss'
@@ -28,7 +25,7 @@ export class FuncionarioListComponent implements OnInit{
   filtroCargo?: string;
   filtroAtivo?: boolean;
 
-  constructor(private service: FuncionarioService, private router: Router) {}
+  constructor(private service: FuncionarioService, protected router: Router) {}
 
   ngOnInit(): void {
     this.carregarFuncionarios();
